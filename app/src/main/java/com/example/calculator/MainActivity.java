@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         start.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 Intent intent= new Intent(getApplicationContext(), Calculator.class);
-                intent.putExtra("message", "계산기르 실행합니다.");
+                intent.putExtra("message", "계산기를 실행합니다.");
                 startActivity(intent);
             }
         });

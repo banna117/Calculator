@@ -13,10 +13,11 @@ import android.widget.Toast;
 
 public class Calculator extends AppCompatActivity {
 
-    Double a, b, res=0.0;
+    Double res=0.0;
     Button plusBtn = null;
     Button minusBtn = null;
     Button multBtn = null;
+    Button clearBtn = null;
 
     EditText firstNum = null;
     EditText secNum = null;
@@ -27,27 +28,30 @@ public class Calculator extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculator);
+
         plusBtn = (Button) findViewById(R.id.plusBtn);
         minusBtn = (Button) findViewById(R.id.minusBtn);
         multBtn = (Button) findViewById(R.id.multBtn);
+        clearBtn = (Button) findViewById(R.id.clearBtn);
 
         firstNum = (EditText) findViewById(R.id.firstNum);
         secNum = (EditText) findViewById(R.id.secNum);
 
         result = (TextView) findViewById(R.id.result);
         Intent intent = getIntent();
-        Log.d("상관없나?", intent.getStringExtra("message"));
+        Log.d("계산기", intent.getStringExtra("message"));
 
     }
 
     public void onClick(View v){
-        a = Double.parseDouble(firstNum.getText().toString());
-        b = Double.parseDouble(secNum.getText().toString());
+        double a = Double.parseDouble(firstNum.getText().toString());
+        double b = Double.parseDouble(secNum.getText().toString());
+
         switch(v.getId()){
             case R.id.plusBtn : {
                 try {
                     res=a+b;
-                    Toast.makeText(getApplicationContext(), String.valueOf(a) + " + " + String.valueOf(b) + " = " + String.valueOf(res), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), String.valueOf(a) + " + " + String.valueOf(b) + " = " + String.valueOf(res), Toast.LENGTH_SHORT).show();
                     break;
                 }
                 catch(Exception e){
@@ -58,7 +62,7 @@ public class Calculator extends AppCompatActivity {
             case R.id.minusBtn : {
                 try {
                     res=a-b;
-                    Toast.makeText(getApplicationContext(), String.valueOf(a) + " - " + String.valueOf(b) + " = " + String.valueOf(res), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), String.valueOf(a) + " - " + String.valueOf(b) + " = " + String.valueOf(res), Toast.LENGTH_SHORT).show();
                     break;
                 }
                 catch(Exception e){
@@ -68,8 +72,21 @@ public class Calculator extends AppCompatActivity {
             case R.id.multBtn : {
                 try {
                     res=a*b;
-                    Toast.makeText(getApplicationContext(), String.valueOf(a) + " * " + String.valueOf(b) + " = " + String.valueOf(res), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), String.valueOf(a) + " * " + String.valueOf(b) + " = " + String.valueOf(res), Toast.LENGTH_SHORT).show();
                     break;
+                }
+                catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+            case R.id.clearBtn : {
+                try{
+                    //Toast.makeText(this, "clear", Toast.LENGTH_SHORT).show();
+                    firstNum.setText(null);
+                    secNum.setText(null);
+                    result.setText("답");
+                    Toast.makeText(this, "clear", Toast.LENGTH_SHORT).show();
+                    return;
                 }
                 catch(Exception e){
                     e.printStackTrace();
@@ -79,7 +96,7 @@ public class Calculator extends AppCompatActivity {
                 break;
             }
         }
-        result.setText(String.valueOf(a+b));
+        result.setText(String.valueOf(res));
     }
 
 }
